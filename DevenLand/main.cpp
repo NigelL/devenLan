@@ -4,6 +4,7 @@
 bool grid[40][40];
 int sortInt[] = { 21 , 35 , 20 };
 
+<<<<<<< HEAD
 void Sort(int arrayToSort[])
 {
 	for (int i = 0; i < sizeof(arrayToSort) / sizeof(int); i++)
@@ -20,7 +21,12 @@ void Sort(int arrayToSort[])
 	}
 }
 
+	
 int main() {
 	Sort(sortInt);
+	for (int x = 0; x < 40; x++)
+		for (int y = 0; y < 40; y++)
+			grid[x][y] = false;
+
 	return 0;
 }
