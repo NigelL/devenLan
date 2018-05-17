@@ -4,7 +4,7 @@
 
 int main() 
 {
-	std::cout << "Test" << std::endl;
+	std::cout << "HELLO ME" << std::endl;
 	std::cin.get();
 	return 0;
 }
