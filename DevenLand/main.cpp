@@ -40,7 +40,11 @@ int main() {
 	while (true) {
 		// poll for events
 
-		if (GetKeyState('W') & 0x8000) {
+		if (GetKeyState(VK_LSHIFT) & 0x8000) {
+			std::cout << "Player 1 shot!" << std::endl;
+			if (player1->shoot(*player2, grid))
+				player2->lives--;
+		} else if (GetKeyState('W') & 0x8000) {
 			player1->move(direction::up, grid);
 		} else if (GetKeyState('A') & 0x8000) {
 			player1->move(direction::left, grid);
@@ -50,7 +54,11 @@ int main() {
 			player1->move(direction::right, grid);
 		}
 
-		if (GetKeyState(VK_UP) & 0x8000) {
+		if (GetKeyState(VK_RSHIFT) & 0x8000) {
+			std::cout << "Player 2 shot!" << std::endl;
+			if (player2->shoot(*player1, grid))
+				player1->lives--;
+		} else if (GetKeyState(VK_UP) & 0x8000) {
 			player2->move(direction::up, grid);
 		} else if (GetKeyState(VK_LEFT) & 0x8000) {
 			player2->move(direction::left, grid);

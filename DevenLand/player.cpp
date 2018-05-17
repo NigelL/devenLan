@@ -1,9 +1,11 @@
 #include "player.h"
+#include <iostream>
 
 Player::Player() : x(0), y(0), face(' ') {}
 Player::Player(int x, int y, char f) : x(x), y(y), face(f) {}
 
 void Player::move(direction direction, bool grid[40][40]) {
+	this->facing = direction;
 	switch (direction) {
 		case up:
 			if (y == 0) return;
@@ -31,6 +33,49 @@ void Player::move(direction direction, bool grid[40][40]) {
 			if (grid[y][x + 1]) {
 				x++; 
 				updateGrid(x - 1, y, x, y);
+			}
+			break;
+	}
+}
+
+bool Player::shoot(Player &player, bool grid[40][40]) {
+	int length = 0;
+	std::cout << "Facing: " << facing << std::endl;
+	switch (facing) {
+		case up:
+			while (true) {
+				length++;
+				if (player.y == y - length && player.x == x)
+					return true;
+				if (y - length == 0 || !grid[y - length][x]) 
+					return false;
+			}
+			break;
+		case down:
+			while (true) {
+				length++;
+				if (player.y == y + length && player.x == x)
+					return true;
+				if (y + length == 39 || !grid[y + length][x]) 
+					return false;
+			}
+			break;
+		case left:
+			while (true) {
+				length++;
+				if (player.y == y && player.x == x - length) 
+					return true;
+				if (x - length == 0 || !grid[y][x - length]) 
+					return false;
+			}
+			break;
+		case right:
+			while (true) {
+				length++;
+				if (player.y == y && player.x == x + length)
+					return true;
+				if (x + length == 39 || !grid[y][x + length])
+					return false;
 			}
 			break;
 	}

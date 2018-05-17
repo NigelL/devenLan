@@ -8,12 +8,14 @@
 struct Player {
 	int x, y;
 	int lives = 3;
+	direction facing = right;
 	const char face;
 
 	Player();
 	Player(int x, int y, char f);
 	
 	void move(direction direction, bool grid[40][40]);
+	bool shoot(Player &player, bool grid[40][40]);
 
 private:
 	// updates grid based on old and new coord
