@@ -28,5 +28,7 @@ int main() {
 		for (int y = 0; y < 40; y++)
 			grid[x][y] = false;
 
+	std::cout << "OI YOU AH " << std::endl;
+
 	return 0;
 }
