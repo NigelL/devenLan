@@ -8,28 +8,28 @@ void Player::move(direction direction, bool grid[40][40]) {
 		case up:
 			if (y == 0) return;
 			if (grid[y - 1][x]) {
-				y -= 1;
+				y--;
 				updateGrid(x, y + 1, x, y);
 			}
 			break;
 		case down:
 			if (y == 39) return;
 			if (grid[y + 1][x]) {
-				y += 1;
+				y++;
 				updateGrid(x, y - 1, x, y);
 			}
 			break;
 		case left:
 			if (x == 0) return;
 			if (grid[y][x - 1]) {
-				x -= 1;
+				x--;
 				updateGrid(x + 1, y, x, y);
 			}
 			break;
 		case right:
 			if (x == 39) return;
 			if (grid[y][x + 1]) {
-				x += 1; 
+				x++; 
 				updateGrid(x - 1, y, x, y);
 			}
 			break;

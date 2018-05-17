@@ -38,7 +38,7 @@ int main() {
 	// update grid with new data
 	loadGrid();
 	while (true) {
-		// check poll for events
+		// poll for events
 
 		if (GetKeyState('W') & 0x8000) {
 			player1->move(direction::up, grid);
