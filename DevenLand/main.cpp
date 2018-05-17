@@ -1,10 +1,9 @@
 #include <iostream>
 
+// true - wall. false - free
+bool grid[40][40];
 
+int main() {
 
-int main() 
-{
-	std::cout << "HELLO ME" << std::endl;
-	std::cin.get();
 	return 0;
 }
