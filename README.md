@@ -3,4 +3,6 @@
 Name | Role
 --- | ---
 Nigel | Generate maze.
-James | Create movement of character.
+
+Improvements
+- Soft code the size of the grid
