@@ -30,58 +30,60 @@ void Player::move(direction direction, bool grid[40][40]) {
 }
 
 bool Player::shoot(Player &player, bool grid[40][40]) {
-	int length = 1;
+	int length = 0;
 	int oldX, oldY, newX, newY;
-	std::cout << "Facing: " << facing << std::endl;
-	switch (facing) {
-		case up:
-			while (true) {
-				length++;
+	oldX = newX = x;
+	oldY = newY = y;
+	while (true) {
+		oldX = newX;
+		oldY = newY;
+		length++;
+		switch (facing) {
+			case up:
 				newY = y - length;
-				if (player.y == newY && player.x == x)
-					return true;
-				if (newY == 0 || !grid[newY][x]) 
+				if (newY <= 0) {
+					updateGrid(oldX, oldY, newX, newY, ' ');
 					return false;
-				Sleep(10);
-				updateGrid(x, newY + 1, x, newY, '-');
-			}
-			break;
-		case down:
-			while (true) {
-				length++;
-				int newY = y + length;
-				if (player.y == newY && player.x == x)
-					return true;
-				if (newY == 39 || !grid[newY][x]) 
+				}
+				break;
+			case down:
+				newY = y + length;
+				if (newY >= 39) {
+					updateGrid(oldX, oldY, newX, newY, ' ');
 					return false;
-				Sleep(10);
-				updateGrid(x, newY - 1, x, newY, '-');
-			}
-			break;
-		case left:
-			while (true) {
-				length++;
-				int newX = x - length;
-				if (player.y == y && player.x == newX) 
-					return true;
-				if (newX == 0 || !grid[y][newX]) 
+				}
+				break;
+			case left:
+				newX = x - length;
+				if (newX <= 0) {
+					updateGrid(oldX, oldY, newX, newY, ' ');
 					return false;
-				Sleep(10);
-				updateGrid(newX + 1, y, newX, y, '-');
-			}
-			break;
-		case right:
-			while (true) {
-				length++;
-				int newX = x + length;
-				if (player.y == y && player.x == newX)
-					return true;
-				if (newX == 39 || !grid[y][newX])
+				}
+				break;
+			case right:
+				newX = x + length;
+				if (newX >= 39) {
+					updateGrid(oldX, oldY, newX, newY, ' ');
 					return false;
-				Sleep(10);
-				updateGrid(newX - 1, y, newX, y, '-');
-			}
-			break;
+				}
+				break;
+		}
+
+		if (!grid[newY][newX]) {
+			updateGrid(oldX, oldY, newX, newY, ' ');
+			grid[newY][newX] = true;
+			return false;
+		} else if (player.y == newY && player.x == newX) {
+			updateGrid(oldX, oldY, newX, newY, '_');
+			return true;
+		}
+
+		Sleep(50);
+
+		if ((oldY == y && oldX != x) || (oldY != y && oldX == x))
+			updateGrid(oldX, oldY, newX, newY, '-');
+		else 
+			updateGrid(newX, newY, newX, newY, '-');
 	}
 }
 
