@@ -4,6 +4,7 @@
 #include <string>
 #include <Windows.h>
 
+void GenerateMaze(bool baseGrid[40][40]);
 // false - wall. true - free
 bool grid[40][40]; // y, x
 
@@ -12,7 +13,7 @@ Player *player2 = new Player(39, 39, 'O');
 
 void loadGrid() {
 	// clear console
-	system("cls");
+	 system("cls");
 	// iterate through grid array
 	for (int y = 0; y < 40; y++) {
 		std::string line = "";
@@ -34,8 +35,10 @@ int main() {
 	// initialising grid
 	for (int y = 0; y < 40; y++)
 		for (int x = 0; x < 40; x++)
-			grid[y][x] = true;
+			grid[y][x] = false;
+	GenerateMaze(grid);
 	// update grid with new data
+	
 	loadGrid();
 	while (true) {
 		// poll for events
@@ -71,5 +74,7 @@ int main() {
 		// delay because the computer is too fast
 		Sleep(100);
 	}
+	
+	//std::cin.get();
 	return 0;
 }
