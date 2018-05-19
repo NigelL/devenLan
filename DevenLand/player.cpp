@@ -30,6 +30,9 @@ void Player::move(direction direction, bool grid[40][40]) {
 }
 
 bool Player::shoot(Player &player, bool grid[40][40]) {
+	if (ammo == 0)
+		return false;
+	ammo--;
 	int length = 0;
 	int oldX, oldY, newX, newY;
 	oldX = newX = x;
@@ -41,28 +44,28 @@ bool Player::shoot(Player &player, bool grid[40][40]) {
 		switch (facing) {
 			case up:
 				newY = y - length;
-				if (newY <= 0) {
+				if (newY < 0) {
 					updateGrid(oldX, oldY, newX, newY, ' ');
 					return false;
 				}
 				break;
 			case down:
 				newY = y + length;
-				if (newY >= 39) {
+				if (newY > 39) {
 					updateGrid(oldX, oldY, newX, newY, ' ');
 					return false;
 				}
 				break;
 			case left:
 				newX = x - length;
-				if (newX <= 0) {
+				if (newX < 0) {
 					updateGrid(oldX, oldY, newX, newY, ' ');
 					return false;
 				}
 				break;
 			case right:
 				newX = x + length;
-				if (newX >= 39) {
+				if (newX > 39) {
 					updateGrid(oldX, oldY, newX, newY, ' ');
 					return false;
 				}

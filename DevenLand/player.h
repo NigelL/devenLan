@@ -8,6 +8,7 @@
 struct Player {
 	int x, y;
 	int lives = 3;
+	int ammo = 3;
 	direction facing = right;
 	const char face;
 
