@@ -19,7 +19,7 @@ struct Player {
 
 private:
 	// updates grid based on old and new coord
-	void updateGrid(int oldX, int oldY, int newX, int newY);
+	void updateGrid(int oldX, int oldY, int newX, int newY, const char &letter);
 	// returns the true x position of the player in the console
 	int getScreenXPos(int x);
 };
