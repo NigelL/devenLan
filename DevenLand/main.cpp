@@ -31,6 +31,35 @@ void loadGrid() {
 	}
 }
 
+std::string spaces(int x) {
+	std::string value = "";
+	for (int i = 0; i < x; i++)
+		value += " ";
+	return value;
+}
+
+void displayStats() {
+	std::cout << std::endl;
+
+	std::cout << "Player 1" << spaces(80 - 16) << "Player 2" << std::endl;
+
+	std::cout << "Lives: ";
+	for (int i = 0; i < player1->lives; i++)
+		std::cout << "_ ";
+	std::cout << spaces(80 - 14 - 6 + (3 - player1->lives)*2 - 6 + 1) << "Lives: ";
+	for (int i = 0; i < player2->lives; i++)
+		std::cout << "_ ";
+	std::cout << std::endl;
+
+	std::cout << " Ammo: ";
+	for (int i = 0; i < player1->ammo; i++)
+		std::cout << "_ ";
+	std::cout << spaces(80 - 12 - 6 + (3 - player1->ammo) * 2 - 6) << "Ammo: ";
+	for (int i = 0; i < player2->ammo; i++)
+		std::cout << "_ ";
+	std::cout << std::endl;
+}
+
 int main() {
 	// initialising grid
 	for (int y = 0; y < 40; y++)
@@ -40,13 +69,15 @@ int main() {
 	// update grid with new data
 	
 	loadGrid();
+	
+	displayStats();
+
 	while (true) {
 		// poll for events
-
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			std::cout << "Player 1 shot!" << std::endl;
 			if (player1->shoot(*player2, grid))
 				player2->lives--;
+			displayStats();
 		} else if (GetKeyState('W') & 0x8000) {
 			player1->move(direction::up, grid);
 		} else if (GetKeyState('A') & 0x8000) {
@@ -58,9 +89,9 @@ int main() {
 		}
 
 		if (GetKeyState(VK_RSHIFT) & 0x8000) {
-			std::cout << "Player 2 shot!" << std::endl;
 			if (player2->shoot(*player1, grid))
 				player1->lives--;
+			displayStats();
 		} else if (GetKeyState(VK_UP) & 0x8000) {
 			player2->move(direction::up, grid);
 		} else if (GetKeyState(VK_LEFT) & 0x8000) {
@@ -74,7 +105,6 @@ int main() {
 		// delay because the computer is too fast
 		Sleep(100);
 	}
-	
-	//std::cin.get();
+
 	return 0;
 }
