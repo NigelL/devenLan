@@ -2,9 +2,8 @@
 
 Name | Role
 --- | ---
-Nigel | Generate maze.
+Nigel | Generate playing field
 
 Improvements
 - Soft code the size of the grid
-- Added live ui
-- Have a limitation to ammo
+- improve live ui
