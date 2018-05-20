@@ -30,18 +30,19 @@ void Player::move(direction direction, bool grid[40][40]) {
 }
 
 bool Player::shoot(Player &player, bool grid[40][40]) {
-	if (ammo == 0)
-		return false;
+	//if (ammo == 0)
+	//	return false;
 	ammo--;
 	int length = 0;
 	int oldX, oldY, newX, newY;
 	oldX = newX = x;
 	oldY = newY = y;
+	direction dir = this->facing;
 	while (true) {
 		oldX = newX;
 		oldY = newY;
 		length++;
-		switch (facing) {
+		switch (dir) {
 			case up:
 				newY = y - length;
 				if (newY < 0) {
