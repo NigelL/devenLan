@@ -1,4 +1,5 @@
 #include "player.h"
+#include "item.h"
 
 #include <iostream>
 #include <string>
@@ -8,8 +9,10 @@ void GenerateMaze(bool baseGrid[40][40]);
 // false - wall. true - free
 bool grid[40][40]; // y, x
 
+float time = 0.0f;
+
 Player *player1 = new Player(0, 0, 'X');
-Player *player2 = new Player(39, 39, 'O');
+Player *player2 = new Player(39, 39, 'O'); 
 
 void loadGrid() {
 	// clear console
@@ -104,6 +107,7 @@ int main() {
 
 		// delay because the computer is too fast
 		Sleep(100);
+		time += 0.1;
 	}
 
 	return 0;
