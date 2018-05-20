@@ -4,12 +4,13 @@
 #include <iostream>
 #include <string>
 #include <Windows.h>
+#include <thread>
 
 void GenerateMaze(bool baseGrid[40][40]);
 // false - wall. true - free
 bool grid[40][40]; // y, x
 
-float time = 0.0f;
+float totalTime = 0.0f;
 
 Player *player1 = new Player(0, 0, 'X');
 Player *player2 = new Player(39, 39, 'O'); 
@@ -63,6 +64,12 @@ void displayStats() {
 	std::cout << std::endl;
 }
 
+void shot(Player *shooter, Player *victim) {
+	if (shooter->shoot(*victim, grid))
+		victim->lives--;
+	//displayStats();
+}
+
 int main() {
 	// initialising grid
 	for (int y = 0; y < 40; y++)
@@ -77,11 +84,13 @@ int main() {
 
 	while (true) {
 		// poll for events
+
 		if (GetKeyState(VK_LSHIFT) & 0x8000) {
-			if (player1->shoot(*player2, grid))
-				player2->lives--;
-			displayStats();
-		} else if (GetKeyState('W') & 0x8000) {
+			std::thread action(shot, player1, player2);
+			action.detach();
+		}
+
+		if (GetKeyState('W') & 0x8000) {
 			player1->move(direction::up, grid);
 		} else if (GetKeyState('A') & 0x8000) {
 			player1->move(direction::left, grid);
@@ -92,10 +101,11 @@ int main() {
 		}
 
 		if (GetKeyState(VK_RSHIFT) & 0x8000) {
-			if (player2->shoot(*player1, grid))
-				player1->lives--;
-			displayStats();
-		} else if (GetKeyState(VK_UP) & 0x8000) {
+			std::thread action(shot, player2, player1);
+			action.detach();
+		}
+		
+		if (GetKeyState(VK_UP) & 0x8000) {
 			player2->move(direction::up, grid);
 		} else if (GetKeyState(VK_LEFT) & 0x8000) {
 			player2->move(direction::left, grid);
@@ -107,7 +117,7 @@ int main() {
 
 		// delay because the computer is too fast
 		Sleep(100);
-		time += 0.1;
+		totalTime += 0.1f;
 	}
 
 	return 0;
