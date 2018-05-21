@@ -95,10 +95,6 @@ void GenerateMaze(bool baseGrid[40][40]) {
 	int currentCellIndex = 0;
 	Cell offsetPosition = allCellPoint[currentCellIndex];
 	
-	for (currentCellIndex = 0; currentCellIndex < 5; currentCellIndex++) {
-		
-	}
-
 	for (currentCellIndex = 0; currentCellIndex < 5; currentCellIndex++)
 	{ 	
 		offsetPosition = allCellPoint[currentCellIndex];

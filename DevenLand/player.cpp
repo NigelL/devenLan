@@ -93,11 +93,7 @@ bool Player::shoot(Player &player, bool grid[40][40]) {
 	}
 }
 
-<<<<<<< HEAD
-void Player::updateGrid(int& oldX,int& oldY, int& newX, int& newY, const char &letter) {
-=======
 void Player::updateGrid(int& oldX, int& oldY, int& newX, int& newY, const char &letter) {
->>>>>>> 095198daeda4fc6500d6c9eba457906f22b36580
 	DWORD dw; // no idea
 	COORD oldPosition = { getScreenXPos(oldX), oldY };
 	COORD newPosition = { getScreenXPos(newX), newY };
