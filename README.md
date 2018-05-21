@@ -3,7 +3,7 @@
 Name | Role
 --- | ---
 Nigel | Generate playing field
-James | Fix bug of bullets not despawning
+James | Create spawning of items
 
 Improvements
 - Soft code the size of the grid
