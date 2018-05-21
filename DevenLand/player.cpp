@@ -86,6 +86,7 @@ bool Player::shoot(Player &player, bool grid[40][40]) {
 
 		Sleep(50);
 
+		updateGrid(x, y, x, y, this->face);
 		if ((oldY == y && oldX != x) || (oldY != y && oldX == x) || (oldY != y && oldX != x))
 			updateGrid(oldX, oldY, newX, newY, '-');
 		else 

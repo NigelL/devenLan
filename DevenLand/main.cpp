@@ -1,5 +1,5 @@
 #include "player.h"
-#include "item.h"
+#include "AllItems.h"
 
 #include <iostream>
 #include <string>
@@ -9,6 +9,8 @@
 void GenerateMaze(bool baseGrid[40][40]);
 // false - wall. true - free
 bool grid[40][40]; // y, x
+
+Item items[40][40];
 
 float totalTime = 0.0f;
 
