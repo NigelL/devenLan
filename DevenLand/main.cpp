@@ -74,10 +74,11 @@ int main() {
 	// initialising grid
 	for (int y = 0; y < 40; y++)
 		for (int x = 0; x < 40; x++)
-			grid[y][x] = false;
+			grid[y][x] = true;
 	GenerateMaze(grid);
 	// update grid with new data
 	
+
 	loadGrid();
 	
 	displayStats();
