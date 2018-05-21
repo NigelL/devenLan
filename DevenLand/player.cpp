@@ -86,14 +86,14 @@ bool Player::shoot(Player &player, bool grid[40][40]) {
 
 		Sleep(50);
 
-		if ((oldY == y && oldX != x) || (oldY != y && oldX == x))
+		if ((oldY == y && oldX != x) || (oldY != y && oldX == x) || (oldY != y && oldX != x))
 			updateGrid(oldX, oldY, newX, newY, '-');
 		else 
 			updateGrid(newX, newY, newX, newY, '-');
 	}
 }
 
-void Player::updateGrid(int oldX, int oldY, int newX, int newY, const char &letter) {
+void Player::updateGrid(int& oldX, int& oldY, int& newX, int& newY, const char &letter) {
 	DWORD dw; // no idea
 	COORD oldPosition = { getScreenXPos(oldX), oldY };
 	COORD newPosition = { getScreenXPos(newX), newY };
