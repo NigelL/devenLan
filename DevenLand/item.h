@@ -2,15 +2,30 @@
 #define ITEM_H
 
 struct Item {
-	int x, y, boost;
+	// states the coordinate of the item
+	int x, y;
+
+	// states the magnitude of the effect
+	int magnitude;
+	
+	// stores the icon of the item 
 	const char icon;
 
+	// Default initialiser 
 	Item();
-	Item(int x, int y, const char icon, int boost);
+
+	// Initialiser with specified values
+	Item(int x, int y, const char icon, int magnitude);
+
+	// Default destructor
 	~Item();
 
-	private:
+private:
+
+	// spawns the item on the grid
 	void spawn();
+
+	// despawns the item on the grid
 	void despawn();
 };
 
