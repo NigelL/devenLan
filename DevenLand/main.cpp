@@ -88,7 +88,7 @@ int main() {
 			std::thread action(shot, player1, player2);
 			action.detach();
 		}
-
+		
 		if (GetKeyState('W') & 0x8000) {
 			player1->move(direction::up, grid);
 		} else if (GetKeyState('A') & 0x8000) {
