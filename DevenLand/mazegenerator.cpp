@@ -1,8 +1,8 @@
+#include "Tile.h"
+
 #include <iostream>
 #include <string>
 #include <time.h>
-
-
 
 struct Cell
 {
@@ -80,7 +80,7 @@ float DistanceBetweenTwoPoints(Cell firstCell, Cell secondCell) {
 }
 
 
-void GenerateMaze(bool baseGrid[40][40]) {
+void GenerateMaze(Tile baseGrid[40][40]) {
 
 	//Generate 5 points
 
@@ -109,16 +109,16 @@ void GenerateMaze(bool baseGrid[40][40]) {
 
 
 					if (x == 0 && y == 0) {
-						baseGrid[yPos][xPos] = false;
+						baseGrid[yPos][xPos].isBlocked = true;
 						continue;
 					}
 					if (xPos < 0 || xPos > 39 || yPos < 0 || yPos > 39) {
 						continue;
 					}
 
-					if (baseGrid[yPos][xPos]) {
+					if (!baseGrid[yPos][xPos].isBlocked) {
 						offsetPosition = Cell(xPos, yPos);
-						baseGrid[yPos][xPos] = false;
+						baseGrid[yPos][xPos].isBlocked = true;
 
 					}
 				}

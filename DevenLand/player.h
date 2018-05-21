@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "direction.h"
+#include "Tile.h"
 
 #include <windows.h>
 
@@ -15,8 +16,8 @@ struct Player {
 	Player();
 	Player(int x, int y, char f);
 	
-	void move(direction direction, bool grid[40][40]);
-	bool shoot(Player &player, bool grid[40][40]);
+	void move(direction direction, Tile grid[40][40]);
+	bool shoot(Player &player, Tile grid[40][40]);
 
 private:
 	// updates grid based on old and new coord

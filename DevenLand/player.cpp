@@ -4,32 +4,32 @@
 Player::Player() : x(0), y(0), face(' ') {}
 Player::Player(int x, int y, char f) : x(x), y(y), face(f) {}
 
-void Player::move(direction direction, bool grid[40][40]) {
+void Player::move(direction direction, Tile grid[40][40]) {
 	this->facing = direction;
 	int oldX = x;
 	int oldY = y;
 	switch (direction) {
 		case up:
 			if (y == 0) return;
-			if (grid[y - 1][x]) y--;
+			if (!grid[y - 1][x].isBlocked) y--;
 			break;
 		case down:
 			if (y == 39) return;
-			if (grid[y + 1][x]) y++;
+			if (!grid[y + 1][x].isBlocked) y++;
 			break;
 		case left:
 			if (x == 0) return;
-			if (grid[y][x - 1]) x--;
+			if (!grid[y][x - 1].isBlocked) x--;
 			break;
 		case right:
 			if (x == 39) return;
-			if (grid[y][x + 1]) x++; 
+			if (!grid[y][x + 1].isBlocked) x++;
 			break;
 	}
 	updateGrid(oldX, oldY, x, y, this->face);
 }
 
-bool Player::shoot(Player &player, bool grid[40][40]) {
+bool Player::shoot(Player &player, Tile grid[40][40]) {
 	//if (ammo == 0)
 	//	return false;
 	ammo--;
@@ -75,9 +75,9 @@ bool Player::shoot(Player &player, bool grid[40][40]) {
 				break;
 		}
 
-		if (!grid[newY][newX]) {
+		if (grid[newY][newX].isBlocked) {
 			updateGrid(oldX, oldY, newX, newY, ' ');
-			grid[newY][newX] = true;
+			grid[newY][newX].isBlocked = false;
 			return false;
 		} else if (player.y == newY && player.x == newX) {
 			updateGrid(oldX, oldY, newX, newY, '_');
@@ -87,10 +87,13 @@ bool Player::shoot(Player &player, bool grid[40][40]) {
 		Sleep(50);
 
 		updateGrid(x, y, x, y, this->face);
-		if ((oldY == y && oldX != x) || (oldY != y && oldX == x) || (oldY != y && oldX != x))
-			updateGrid(oldX, oldY, newX, newY, '-');
-		else 
+
+		if (grid[newY][newX].item != nullptr)
+			updateGrid(oldX, oldY, newX, newY, grid[newY][newX].item->icon);
+		else if (oldY == y && oldX == x || grid[oldY][oldX].item != nullptr)
 			updateGrid(newX, newY, newX, newY, '-');
+		else 
+			updateGrid(oldX, oldY, newX, newY, '-');
 	}
 }
 

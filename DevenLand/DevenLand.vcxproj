@@ -116,6 +116,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mazegenerator.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllItems.h" />
@@ -124,6 +125,7 @@
     <ClInclude Include="HealthPack.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

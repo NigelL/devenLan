@@ -1,3 +1,4 @@
+#include "Tile.h"
 #include "player.h"
 #include "AllItems.h"
 
@@ -6,11 +7,10 @@
 #include <Windows.h>
 #include <thread>
 
-void GenerateMaze(bool baseGrid[40][40]);
-// false - wall. true - free
-bool grid[40][40]; // y, x
+void GenerateMaze(Tile baseGrid[40][40]);
 
-Item items[40][40];
+// false - wall. true - free
+Tile grid[40][40]; // y, x
 
 float totalTime = 0.0f;
 
@@ -30,7 +30,7 @@ void loadGrid() {
 			else if (player2->x == x && player2->y == y)
 				line += player2->face;
 			else // check if this is a wall
-				line += (grid[y][x] ? " " : "#");
+				line += (grid[y][x].isBlocked ? "#" : " ");
 			line += " ";
 		}
 		std::cout << line << std::endl;
@@ -76,14 +76,16 @@ int main() {
 	// initialising grid
 	for (int y = 0; y < 40; y++)
 		for (int x = 0; x < 40; x++)
-			grid[y][x] = true;
-	GenerateMaze(grid);
-	// update grid with new data
-	
+			grid[y][x] = Tile(false, nullptr);
 
+	GenerateMaze(grid);
+
+	// update grid with new data
 	loadGrid();
 	
 	displayStats();
+
+	srand(time(NULL));
 
 	while (true) {
 		// poll for events
@@ -120,6 +122,20 @@ int main() {
 		// delay because the computer is too fast
 		Sleep(100);
 		totalTime += 0.1f;
+
+		if (totalTime > 5) {
+			int x = rand() % 40;
+			int y = rand() % 40;
+			switch (rand() % 2) {
+				case 0:
+					grid[y][x] = Tile(false, new HealthPack(x, y, '+', 1));
+				case 1:
+					grid[y][x] = Tile(false, new AmmoPack(x, y, '=', 3));
+				default:
+					break;
+			}
+			totalTime = 0;
+		}
 	}
 
 	return 0;
